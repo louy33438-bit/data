@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小鱼智能数据分析处理系统 - 后台主页</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- 顶部导航 -->
+        <header class="navbar">
+            <div class="navbar-left">
+                <h1>小鱼智能数据分析系统</h1>
+            </div>
+            <div class="navbar-right">
+                <span>欢迎，{{ current_user.username }}</span>
+                <a href="{{ url_for('main.logout') }}" class="logout-btn">退出登录</a>
+            </div>
+        </header>
+        
+        <!-- 侧边栏导航 -->
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="{{ url_for('main.dashboard') }}">
+                        <i class="nav-icon">📊</i>
+                        <span>数据搜索</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('main.data_warehouse') }}">
+                        <i class="nav-icon">📁</i>
+                        <span>数据仓库</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <i class="nav-icon">🤖</i>
+                        <span>AI分析</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('main.reports') }}">
+                        <i class="nav-icon">📄</i>
+                        <span>报告管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 主要内容区域 -->
+        <main class="content">
+            <div class="content-header">
+                <h2>数据搜索</h2>
+                <p>输入关键词或需求，获取百度搜索结果</p>
+            </div>
+            
+            <!-- 搜索表单 -->
+            <div class="search-section">
+                <form id="search-form" class="search-form">
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="search-keyword" 
+                            name="keyword" 
+                            placeholder="请输入搜索关键词或需求..." 
+                            required
+                            autofocus
+                        >
+                        <button type="submit" id="search-btn" class="search-button">
+                            <i class="search-icon">🔍</i>
+                            <span>搜索</span>
+                        </button>
+                    </div>
+                    <div style="margin-top: 15px; font-size: 14px; color: #999;">
+                        示例：输入"人工智能"、"区块链"等关键词进行搜索
+                    </div>
+                </form>
+            </div>
+            
+            <!-- 搜索结果区域 -->
+            <div class="results-section" id="results-section" style="display: none;">
+                <div class="results-header">
+                    <h3>搜索结果</h3>
+                    <div class="results-actions">
+                        <button id="select-all-btn" class="btn btn-secondary">全选</button>
+                        <button id="deselect-all-btn" class="btn btn-secondary">取消全选</button>
+                        <button id="save-selected-btn" class="btn btn-primary">保存选中数据</button>
+                    </div>
+                </div>
+                
+                <div id="results-loading" class="loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>正在搜索，请稍候...</p>
+                </div>
+                
+                <div id="results-list" class="results-list">
+                    <!-- 搜索结果将通过JavaScript动态添加 -->
+                </div>
+                
+                <div id="results-empty" class="results-empty" style="display: none;">
+                    <p>没有找到相关结果</p>
+                </div>
+            </div>
+            
+            <!-- 保存成功提示 -->
+            <div id="save-success" class="alert alert-success" style="display: none;">
+                数据保存成功！
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

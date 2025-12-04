@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据仓库 - 小鱼智能数据分析处理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- 顶部导航 -->
+        <header class="navbar">
+            <div class="navbar-left">
+                <h1>小鱼智能数据分析系统</h1>
+            </div>
+            <div class="navbar-right">
+                <span>欢迎，{{ current_user.username }}</span>
+                <a href="{{ url_for('main.logout') }}" class="logout-btn">退出登录</a>
+            </div>
+        </header>
+        
+        <!-- 侧边栏导航 -->
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{{ url_for('main.dashboard') }}">
+                        <i class="nav-icon">📊</i>
+                        <span>数据搜索</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="{{ url_for('main.data_warehouse') }}">
+                        <i class="nav-icon">📁</i>
+                        <span>数据仓库</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <i class="nav-icon">🤖</i>
+                        <span>AI分析</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('main.reports') }}">
+                        <i class="nav-icon">📄</i>
+                        <span>报告管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 主要内容区域 -->
+        <main class="content">
+            <div class="content-header">
+                <h2>数据仓库</h2>
+                <p>管理和查看已保存的原始数据</p>
+            </div>
+            
+            <!-- 搜索和筛选表单 -->
+            <div class="filter-section">
+                <form id="filter-form" class="filter-form">
+                    <div class="filter-inputs">
+                        <div class="form-group">
+                            <label for="search-keyword">关键词搜索</label>
+                            <input 
+                                type="text" 
+                                id="search-keyword" 
+                                name="keyword" 
+                                placeholder="按搜索关键词筛选..."
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date-filter">日期筛选</label>
+                            <select id="date-filter" name="date">
+                                <option value="">全部日期</option>
+                                <!-- 日期选项将通过JavaScript动态添加 -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                        <button type="button" id="reset-filter" class="btn btn-secondary">重置</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- 数据列表区域 -->
+            <div class="data-list-section">
+                <div class="data-list-header">
+                    <h3>原始数据列表</h3>
+                    <div class="list-actions">
+                        <button id="save-selected-btn" class="btn btn-success">存储选中信息</button>
+                    </div>
+                    <div class="data-stats">
+                        <span id="data-count">共 0 条数据</span>
+                    </div>
+                </div>
+                
+                <div id="data-loading" class="loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>正在加载数据，请稍候...</p>
+                </div>
+                
+                <div id="data-list" class="data-list">
+                    <!-- 数据列表将通过JavaScript动态添加 -->
+                </div>
+                
+                <div id="data-empty" class="data-empty" style="display: none;">
+                    <p>没有找到符合条件的数据</p>
+                </div>
+                
+                <!-- 分页控件 -->
+                <div id="pagination" class="pagination">
+                    <!-- 分页按钮将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

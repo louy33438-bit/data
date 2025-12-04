@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 小鱼智能数据分析处理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-header">
+            <h2>小鱼智能数据分析系统</h2>
+            <p>请注册您的账户</p>
+        </div>
+        
+        <div class="login-form">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-error">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form action="{{ url_for('main.register') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required placeholder="请输入用户名">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required placeholder="请输入密码">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">确认密码</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="请再次输入密码">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="login-btn">注册</button>
+                </div>
+                
+                <div class="login-info">
+                    <p>已有账户？<a href="{{ url_for('main.login') }}">点击登录</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

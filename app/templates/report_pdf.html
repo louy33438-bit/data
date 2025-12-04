@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ report.title }}</title>
+    <style>
+        body {
+            font-family: 'SimSun', '宋体', Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1890ff;
+        }
+        .header h1 {
+            color: #1890ff;
+            font-size: 24px;
+            margin: 0;
+        }
+        .meta-info {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .content h2 {
+            color: #1890ff;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .content p {
+            text-indent: 2em;
+            margin: 10px 0;
+        }
+        .related-data {
+            margin-top: 30px;
+            border-top: 1px solid #e8e8e8;
+            padding-top: 20px;
+        }
+        .related-data h2 {
+            color: #1890ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .related-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid #1890ff;
+            background-color: #f5f5f5;
+        }
+        .related-item h3 {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .related-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .related-item .source {
+            font-style: italic;
+            color: #1890ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ report.title }}</h1>
+        <div class="meta-info">
+            <p>创建时间：{{ report.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h2>报告内容</h2>
+        <div>{{ report.content|safe }}</div>
+    </div>
+    
+    {% if related_raw_data %}
+    <div class="related-data">
+        <h2>相关原始数据</h2>
+        {% for item in related_raw_data %}
+        <div class="related-item">
+            <h3>{{ item.title }}</h3>
+            <p class="source">来源：{{ item.source }}</p>
+            {% if item.url %}
+            <p>链接：{{ item.url }}</p>
+            {% endif %}
+            {% if item.summary %}
+            <p>{{ item.summary }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>
